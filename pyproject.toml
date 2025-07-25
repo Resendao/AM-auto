@@ -1,0 +1,23 @@
+[project]
+name = "am-auto"
+version = "0.1.0"
+description = "Projeto de automatizacao AM"
+authors = [
+    {name = "Resendao",email = "dideco906@gmail.com"}
+]
+license = {text = "AMR"}
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pandas (>=2.3.1,<3.0.0)",
+    "plotnine (>=0.15.0,<0.16.0)",
+    "shiny (>=1.4.0,<2.0.0)",
+    "dbnomics (>=1.2.7,<2.0.0)",
+    "jupyter (>=1.1.1,<2.0.0)",
+    "python-bcb (>=0.3.3,<0.4.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

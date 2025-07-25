@@ -1,0 +1,62 @@
+---
+title: "Relatório de Câmbio (BRL/USD)"
+author: "Fernando da Silva"
+format: html
+jupyter: python3
+---
+
+Neste relatório mostro como utilizar o Python para obter dados públicos da taxa de câmbio (BRL/USD, livre, média mensal de venda) através da API do Banco Central do Brasil e produzir um gráfico com sua evolução recente.
+
+## Bibliotecas
+
+Primeiro é necessário importar as bibliotecas de Python (e instalar caso não estejam instalados ainda) para usar as funções úteis de coleta, tratamento e visualização de dados:
+
+```{python}
+# Importar bibliotecas
+from bcb import sgs
+import pandas as pd
+import plotnine as p9
+```
+
+## Dados
+
+Em seguida é necessário identificar o código da série temporal desejada no sistema SGS/BCB e utilizar este código para obter os dados com a bibliotecas `python-bcb`:
+
+```{python}
+# Coleta de dados
+dados = sgs.get(
+    codes = {"cambio": 3698},
+    start = pd.to_datetime("today") - pd.DateOffset(years = 4)
+    )
+```
+
+Os dados brutos obtidos no SGS/BCB são exibidos abaixo:
+
+```{python}
+dados.tail()
+```
+
+Abaixo criamos uma colunna adicional com a informação do índice da tabela:
+
+```{python}
+dados = dados.assign(data = dados.index)
+```
+
+## Visualização de Dados
+
+Por fim, pode ser utilizado um pacote de visualização de dados como o `plotnine` para gerar um gráfico de linha com a série da taxa de câmbio:
+
+```{python}
+# Gráfico de linha
+print((p9.ggplot(data = dados) +
+  p9.aes(x = "data", y = "cambio") +
+  p9.geom_line(color = "darkblue", size = 1) +
+  p9.scale_x_date(date_labels = "%Y") +
+  p9.ggtitle("Taxa de câmbio livre") +
+  p9.ylab("BRL/USD") +
+  p9.xlab("") +
+  p9.labs(
+    caption = "Nota: Média mensal de venda | Dados: BCB | Elaboração: Fernando da Silva"
+    ) +
+  p9.theme_light()))
+```
