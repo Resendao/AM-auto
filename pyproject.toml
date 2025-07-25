@@ -14,7 +14,8 @@ dependencies = [
     "shiny (>=1.4.0,<2.0.0)",
     "dbnomics (>=1.2.7,<2.0.0)",
     "jupyter (>=1.1.1,<2.0.0)",
-    "python-bcb (>=0.3.3,<0.4.0)"
+    "python-bcb (>=0.3.3,<0.4.0)",
+    "rsconnect-python (>=1.27.0,<2.0.0)"
 ]
 
 
