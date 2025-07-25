@@ -8,7 +8,7 @@ on:
 
 
 jobs:
-  Auto: 
+  automacao: 
     runs-on: ubuntu - 22.04
 
     steps:
@@ -40,6 +40,7 @@ jobs:
         
       - name: Deploy da Dashboard
         run: |
+          poetry run dashboard/etl.py
           poetry run rsconnect add --account ${{ secrets.ACCOUNT }} --name ${{ secrets.NAME }} --token ${{ secrets.TOKEN }} --secret ${{ secrets.SECRET }}
           poetry run rsconnect deploy shiny Dashboard --name macro_copa
 
